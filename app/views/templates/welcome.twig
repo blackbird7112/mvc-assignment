@@ -1,0 +1,16 @@
+{% extends "templates/base.twig" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block body %}
+<h2>Welcome to the Library Management System</h2>
+   <form action="/adminlog" method="GET">
+        <input type="submit" value="Admin">        
+    </form>
+    <form action="/userlog" method="GET">
+        <input type="submit" value="User Sign In">
+    </form>
+    <form action="/usersignup" method="GET">
+        <input type="submit" value="User Register">
+    </form>
+{% endblock %}

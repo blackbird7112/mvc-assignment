@@ -1,0 +1,20 @@
+{% extends "templates/base.twig" %}
+{% block title %}User Login{% endblock %}
+
+
+{% block body %}<h2>Welcome User</h2>
+   <form action="/userlog" method="POST">
+    <div class="text">Username: <label id="usr"><input type="text" name="usr"></label>
+    <br></div>
+    <div class="text">Password: <label id="pass"><input type="password" name="pass"></label>
+    <br></div>
+    <input type="submit" value="Login" name="submit">
+  </form>
+  <form action="/" method="GET">
+    <input type="submit" value="Home">
+</form>
+
+{% if error %}
+Invalid Username or password
+{% endif %}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "templates/base.twig" %}
+
+{% block title %} User SignUp {% endblock %}
+
+{% block body %}
+<h2>Welcome to User Registration</h2>
+   <form action="/usersignup" method="POST">
+    <div class="text">Name: <input type="text" name="name"></div><br>
+    <div class="text">Email Id: <input type="text" name="email"></div><br>
+    <div class="text">Phone Number:<input type="text" name="phone"></div><br>
+    <div class="text">Username: <input type="text" name="usr"></div>
+    <br>
+    <div class="text">Password: <input type="password" name="pass"></div>
+    <br>
+    <div class="text">Reenter Password: <input type="password" name="repass"></div><br>
+    <input type="submit" value="Register">
+  </form>
+{% if error == 1 %}
+Registration Success 
+{% endif %}
+{% if error == 2 %}
+Registration Failed 
+{% endif %}
+<form action="/" method="GET">
+        <input type="submit" value="Home">
+    </form>
+{% endblock %}

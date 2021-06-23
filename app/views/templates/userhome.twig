@@ -1,0 +1,51 @@
+{% extends "templates/base.twig" %}
+
+{% block title %} User Home {% endblock %}
+
+{% block body %}
+    <h2>Welcome {{ name }}</h2>
+    <form action="/userbook" method="GET">
+        <input type="submit" value="Book Catalog">
+    </form>
+    <form action="/" method="GET">
+        <input type="submit" value="Logout">
+    </form>
+    Books Checked Out By You
+    <table><tr><th>Book Id</th><th>Name</th><th>Author</th><th>Publisher</th><th>Action</th></tr>
+    {% for ch in checkout %}
+        <tr><td>{{ch.bid}}</td><td>{{ch.name}}</td><td>{{ch.author}}</td><td>{{ch.publisher}}</td><td><button onclick='action({{ch.bid}})'>Checkin Request</button></td></tr>
+    {% endfor %}
+    </table>
+
+    Pending Requests
+    <table><tr><th>Request Id</th><th>Book ID</th><th>Request Type</th><th>Date Time</th></tr>
+    {% for pr in pendreqs %}
+        <tr><td>{{pr.reqid}}</td><td>{{pr.bid}}</td><td>{{pr.reqtype}}</td><td>{{pr.dt}}</td></tr>
+    {% endfor %}
+    </table>
+    
+    <div id="reqres"></div>
+
+{% endblock %}
+{% block jscode %}
+
+        function action(bid){
+            let data = {
+                "bid": bid,
+                "type":"in"
+            };
+            let datastr = JSON.stringify(data);
+            let option = {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:datastr
+            };
+            fetch("/userrequest",option).then(res => res.json()).then((resdat) => {
+                document.getElementById("reqres").innerHTML = resdat.status;
+            });
+        }
+
+        
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "templates/base.twig" %}
+
+{% block title %} Admin Requests {% endblock %}
+
+{% block body %}
+<h2>Request Manager</h2>
+    <div id="response"></div>
+    Pending Requests
+    <table>
+    <tr><th>Request Id</th><th>Username</th><th>Book ID</th><th>Request Type</th><th>Date Time</th><th>Action</th></tr>
+    {% for rq in requests %}
+    <tr><td>{{rq.reqid}}</td><td>{{rq.usr}}</td><td>{{rq.bid}}</td><td>{{rq.reqtype}}</td><td>{{rq.dt}}</td><td><div id="{{rq.reqid}}"><button onclick='action({{rq.reqid}}+"A")'>Approve</button><button onclick='action({{rq.reqid}}+"D")'>Deny</button></div></td></tr>
+    {% endfor %}
+    </table>
+    <form action="/adminhome" method="GET">
+        <input type="submit" value="Return">
+    </form>
+{% endblock %}
+
+{% block jscode %}
+    function action(str){
+            var reqid = str.substring(0,str.length-1);
+            var action = str[str.length-1];
+            let data = {
+                "reqid":reqid,
+                "action":action 
+            };
+            let datastr = JSON.stringify(data);
+            let option = {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:datastr
+            };
+            fetch("/adminreq",option).then(res => res.json()).then((resdat) => {
+                document.getElementById(reqid).innerHTML = resdat.status;
+
+            });
+        }
+{% endblock %}

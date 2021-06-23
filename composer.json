@@ -1,0 +1,11 @@
+{
+    "name": "rohithvarma3000/mvc-assignment",
+    "description": "Library Management System",
+    "require": {
+        "torophp/torophp": "dev-master",
+        "twig/twig": "^3.0"
+    },
+    "autoload": {
+        "classmap": ["app"]
+    }
+}

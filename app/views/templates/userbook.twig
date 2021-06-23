@@ -1,0 +1,37 @@
+{% extends "templates/base.twig" %}
+
+{% block title %} User Book {% endblock %}
+
+{% block body %}
+ <h2>Book Catalog</h2>
+    <div id="reqres"></div>
+    <table>
+    <tr><th>Book Id</th><th>Name</th><th>Author</th><th>Publisher</th><th>Availability</th><th></th></tr>
+    {% for b in books %}
+        <tr><td>{{b.bid}}</td><td>{{b.name}}</td><td>{{b.author}}</td><td>{{b.publisher}}</td><td>{{b.avail}}</td><td><button onclick='action({{b.bid}})'>Checkout Request</button></td></tr>
+    {% endfor %}
+    </table>
+    <form action="/userhome" method="GET">
+        <input type="submit" value="Return">
+    </form>
+{% endblock %}
+
+{% block jscode %}
+    function action(bid){
+            let data = {
+                "bid": bid,
+                "type":"out"
+            };
+            let datastr = JSON.stringify(data);
+            let option = {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:datastr
+            };
+            fetch("/userrequest",option).then(res => res.json()).then((resdat) => {
+                document.getElementById("reqres").innerHTML = resdat.status;
+            });
+        }
+{% endblock %}

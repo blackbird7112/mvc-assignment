@@ -4,14 +4,14 @@
 
 {% block body %}<h2>Welcome User</h2>
    <form action="/userlog" method="POST">
-    <div class="text">Username: <label id="usr"><input type="text" name="usr"></label>
+    <div class="text"><div class="label">Username:</div><input class="myinput" type="text" name="usr">
     <br></div>
-    <div class="text">Password: <label id="pass"><input type="password" name="pass"></label>
+    <div class="text"><div class="label">Password:</div><input class="myinput" type="password" name="pass">
     <br></div>
     <input type="submit" value="Login" name="submit">
   </form>
   <form action="/" method="GET">
-    <input type="submit" value="Home">
+    <input class="invert" type="submit" value="Home">
 </form>
 
 {% if error %}

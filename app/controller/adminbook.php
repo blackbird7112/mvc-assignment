@@ -10,7 +10,9 @@ class AdminBook{
                 header("Location: /illegal");
             }else{
                 $books = \Models\Admin::get_books();
-                $books["users"] = str_replace(";",",",$books["users"]);
+                foreach($books as $b){
+                    $b["users"] = str_replace(";",",",$b["users"]);
+                }
                 echo \View\Loader::make()->render("templates/adminbook.twig", array(
                     books => $books
                 ));

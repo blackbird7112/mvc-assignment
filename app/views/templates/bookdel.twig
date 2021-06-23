@@ -5,11 +5,11 @@
 {% block body %}
 <h2>Welcome to Book Deletion</h2>
    <form action="/bookdel" method="POST">
-    <div class="text">Book ID: <input type="text" name="bid"><br></div>
+    <div class="text"><div class="label">Book ID:</div><input class="myinput" type="text" name="bid"><br></div>
     <input type="submit" value="Delete Book">
   </form>
   <form action="/adminhome" method="GET">
-    <input type="submit" value="Home">
+    <input class="invert" type="submit" value="Home">
 </form>
 {% if stat == 1 %}
 Deletion Successful

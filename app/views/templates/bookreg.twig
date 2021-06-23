@@ -5,14 +5,14 @@
 {% block body %}
 <h2>Book Registraion</h2>
     <form action="/bookreg" method="POST">
-    <div class="text">Book Name: <input type="text" name="name"><br></div>
-    <div class="text">Author: <input type="text" name="author"><br></div>
-    <div class="text">Publisher: <input type="text" name="pub"><br></div>
-    <div class="text">Quantity: <input type="text" name="qty"><br></div>
+    <div class="text"><div class="label">Book Name:</div><input class="myinput" type="text" name="name"><br></div>
+    <div class="text"><div class="label">Author:</div><input class="myinput" type="text" name="author"><br></div>
+    <div class="text"><div class="label">Publisher:</div><input class="myinput" type="text" name="pub"><br></div>
+    <div class="text"><div class="label">Quantity:</div><input class="myinput" type="text" name="qty"><br></div>
     <input type="submit" value="Register">
   </form>
   <form action="/adminhome" method="GET">
-    <input type="submit" value="Return">
+    <input class="invert" type="submit" value="Return">
 </form>
 {% if stat == 1 %}
 Registraion Successful

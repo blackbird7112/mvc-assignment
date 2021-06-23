@@ -5,7 +5,7 @@
 {% block body %}
 <h2>User Details Search</h2>
         <form action="/userdets" method="POST">
-    <div class="text">Username: <label id="usr"><input type="text" name="usr"></label>
+    <div class="text"><div class="label">Username:</div><input class="myinput" type="text" name="usr">
     <br></div>
     <input type="submit" value="Submit" name="submit">
   </form>
@@ -20,6 +20,6 @@ Search Results
 No details found
 {% endif %}
     <form action="/adminhome" method="GET">
-        <input type="submit" value="Return">
+        <input class="invert" type="submit" value="Return">
     </form>
 {% endblock %}  

@@ -5,9 +5,9 @@ session_start();
 
 class AdminReq{
     public function get(){
-        if($_SESSION["admin"]==null){
+        if($_SESSION["role"]!="admin"){
             header("Location: /illegal");
-        }else{
+        } else {
             echo \View\Loader::make()->render("templates/adminreq.twig",array(
                 requests => \Models\Admin::get_req()
             ));
@@ -19,7 +19,7 @@ class AdminReq{
         $action = $data["action"];
         if(\Models\Admin::admin_req($reqid,$action)){
             echo "{\"status\":\"Request processed successful\"}";
-        }else{
+        } else {
             echo "{\"status\":\"Request has failed\"}";
         }
     }

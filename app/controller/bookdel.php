@@ -5,21 +5,21 @@ session_start();
 
 class BookDel{
     public function get(){
-        if($_SESSION["admin"]==null){
+        if($_SESSION["role"]!="admin"){
             header("Location: /illegal");
-        }else{
+        } else {
             echo \View\Loader::make()->render("templates/bookdel.twig");
         }
         }
     public function post(){
-        $bid = $_POST['bid'];
-        if(\Models\Admin::book_del($bid)){
+        $bookid = $_POST['bid'];
+        if(\Models\Admin::book_del($bookid)){
             echo \View\Loader::make()->render("templates/bookdel.twig",array(
-                stat => 1
+                status => 1
             ));
-        }else{
+        } else {
             echo \View\Loader::make()->render("templates/bookdel.twig",array(
-                stat => 2
+                status => 2
             ));
         }
     }

@@ -5,9 +5,21 @@
 {% block body %}
     <h2>Books</h2>
     <table>
-    <tr><th>Book Id</th><th>Name</th><th>Author</th><th>Publisher</th><th>Max Qty</th><th>Availability</th><th>Users</th></tr>
+    <tr><th>Book Id</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Publisher</th>
+        <th>Max Qty</th>
+        <th>Availability</th>
+        <th>Users</th></tr>
     {% for b in books %}
-    <tr><td>{{b.bid}}</td><td>{{b.name}}</td><td>{{b.author}}</td><td>{{b.publisher}}</td><td>{{b.maxqty}}</td><td>{{b.avail}}</td><td>{{b.users}}</td></tr>
+    <tr><td>{{b.bid}}</td>
+        <td>{{b.name}}</td>
+        <td>{{b.author}}</td>
+        <td>{{b.publisher}}</td>
+        <td>{{b.maxqty}}</td>
+        <td>{{b.avail}}</td>
+        <td>{{b.users}}</td></tr>
     {% endfor %}
     </table>
     <form action="/bookreg" method="GET">

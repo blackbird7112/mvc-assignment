@@ -5,9 +5,9 @@ session_start();
 
 class UserBook{
     public function get(){
-        if($_SESSION["user"]==null){
+        if($_SESSION["role"]!="user"){
             header("Location: /illegal");
-        }else{
+        } else {
         echo \View\Loader::make()->render("templates/userbook.twig",array(
             books => \Models\User::get_books()
         ));

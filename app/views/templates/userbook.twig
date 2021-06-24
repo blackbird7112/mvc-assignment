@@ -6,9 +6,18 @@
  <h2>Book Catalog</h2>
     <div id="reqres"></div>
     <table>
-    <tr><th>Book Id</th><th>Name</th><th>Author</th><th>Publisher</th><th>Availability</th><th></th></tr>
+    <tr><th>Book Id</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Publisher</th>
+        <th>Availability</th><th></th></tr>
     {% for b in books %}
-        <tr><td>{{b.bid}}</td><td>{{b.name}}</td><td>{{b.author}}</td><td>{{b.publisher}}</td><td>{{b.avail}}</td><td><button onclick='action({{b.bid}})'>Checkout Request</button></td></tr>
+        <tr><td>{{b.bid}}</td>
+            <td>{{b.name}}</td>
+            <td>{{b.author}}</td>
+            <td>{{b.publisher}}</td>
+            <td>{{b.avail}}</td>
+            <td><button onclick='action({{b.bid}})'>Checkout Request</button></td></tr>
     {% endfor %}
     </table>
     <form action="/userhome" method="GET">

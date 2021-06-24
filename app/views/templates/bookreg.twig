@@ -5,19 +5,19 @@
 {% block body %}
 <h2>Book Registraion</h2>
     <form action="/bookreg" method="POST">
-    <div class="text"><div class="label">Book Name:</div><input class="myinput" type="text" name="name"><br></div>
-    <div class="text"><div class="label">Author:</div><input class="myinput" type="text" name="author"><br></div>
-    <div class="text"><div class="label">Publisher:</div><input class="myinput" type="text" name="pub"><br></div>
-    <div class="text"><div class="label">Quantity:</div><input class="myinput" type="text" name="qty"><br></div>
+    <div class="text"><div class="mylabel">Book Name:</div><input class="myinput" type="text" name="name"><br></div>
+    <div class="text"><div class="mylabel">Author:</div><input class="myinput" type="text" name="author"><br></div>
+    <div class="text"><div class="mylabel">Publisher:</div><input class="myinput" type="text" name="pub"><br></div>
+    <div class="text"><div class="mylabel">Quantity:</div><input class="myinput" type="text" name="qty"><br></div>
     <input type="submit" value="Register">
   </form>
   <form action="/adminhome" method="GET">
     <input class="invert" type="submit" value="Return">
 </form>
-{% if stat == 1 %}
+{% if status == 1 %}
 Registraion Successful
 {% endif %}
-{% if stat == 2 %}
+{% if status == 2 %}
 Registraion Unsuccessful
 {% endif %}
 {% endblock %}

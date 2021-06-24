@@ -5,23 +5,23 @@ session_start();
 
 class UserDets{
     public function get(){
-        if($_SESSION["admin"]==null){
+        if($_SESSION["role"]!="admin"){
             header("Location: /illegal");
-        }else{
+        } else {
         echo \View\Loader::make()->render("templates/userdets.twig");
     }
     }
     public function post(){
-        $usr = $_POST["usr"];
-        $row = \Models\Admin::user_dets($usr);
-        if($row==false){
+        $user = $_POST["user"];
+        $row = \Models\Admin::user_dets($user);
+        if($row == false){
             echo \View\Loader::make()->render("templates/userdets.twig",array(
-                stat => 2,
+                status => 2,
             ));
-        }else{
+        } else {
         echo \View\Loader::make()->render("templates/userdets.twig",array(
-            stat => 1,
-            dat => $row
+            status => 1,
+            data => $row
         ));
     }
     }

@@ -5,16 +5,16 @@
 {% block body %}
 <h2>Welcome to Book Deletion</h2>
    <form action="/bookdel" method="POST">
-    <div class="text"><div class="label">Book ID:</div><input class="myinput" type="text" name="bid"><br></div>
+    <div class="text"><div class="mylabel">Book ID:</div><input class="myinput" type="text" name="bid"><br></div>
     <input type="submit" value="Delete Book">
   </form>
   <form action="/adminhome" method="GET">
     <input class="invert" type="submit" value="Home">
 </form>
-{% if stat == 1 %}
+{% if status == 1 %}
 Deletion Successful
 {% endif %}
-{% if stat == 2 %}
+{% if status == 2 %}
 Deletion Unsuccessful
 {% endif %}
 {% endblock %}

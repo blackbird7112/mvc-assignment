@@ -5,11 +5,11 @@ session_start();
 
 class AdminHome{
     public function get(){
-        if($_SESSION["admin"]==null){
+        if($_SESSION["role"]!="admin"){
             header("Location: /illegal");
-        }else{
+        } else {
         echo \View\Loader::make()->render("templates/adminhome.twig",array(
-            name => $_SESSION["admin"],
+            name => $_SESSION["name"],
         ));
     }
     }

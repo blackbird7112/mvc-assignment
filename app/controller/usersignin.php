@@ -2,8 +2,7 @@
 
 namespace Controller;
 session_start();
-$_SESSION["user"] = null;
-$_SESSION["admin"] = null ;
+$_SESSION["role"] = null;
 
 
 class UserLog{
@@ -14,12 +13,13 @@ class UserLog{
     }
 
     public function post(){
-        $usr = $_POST["usr"];
+        $user = $_POST["user"];
         $pass = $_POST["pass"];
         $passhash = hash("sha256",$pass);
         
-        if(\Models\User::login($usr,$passhash)){
-            $_SESSION["user"] = $usr;
+        if(\Models\User::login($user,$passhash)){
+            $_SESSION["role"] = "user";
+            $_SESSION["name"] = $user;
             header("Location: /userhome");
         }
         else{

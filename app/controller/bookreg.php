@@ -5,7 +5,7 @@ session_start();
 
 class BookReg{
     public function get(){
-        if($_SESSION["admin"]==null){
+        if($_SESSION["role"]!="admin"){
             header("Location: /illegal");
         }else{
             echo \View\Loader::make()->render("templates/bookreg.twig");
@@ -18,11 +18,11 @@ class BookReg{
         $maxqty = $_POST['qty'];
         if(\Models\Admin::book_reg($name,$author,$publisher,$maxqty)){
             echo \View\Loader::make()->render("templates/bookreg.twig",array(
-                stat => 2
+                status => 2
             ));
-        }else{
+        } else {
             echo \View\Loader::make()->render("templates/bookreg.twig",array(
-                stat => 1
+                status => 1
             ));
         }
     }

@@ -3,8 +3,8 @@
 namespace Controller;
 session_start();
 
-$_SESSION["user"] = null;
-$_SESSION["admin"] = null;
+$_SESSION["role"] = null;
+$_SESSION["name"] = null;
 
 class Home{
     public function get(){

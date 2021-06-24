@@ -2,8 +2,7 @@
 
 namespace Controller;
 session_start();
-$_SESSION["user"] = null;
-$_SESSION["admin"] = null ;
+$_SESSION["role"] = null;
 
 
 class AdminLog{
@@ -13,15 +12,15 @@ class AdminLog{
         ));
     }
     public function post(){
-        $usr = $_POST["usr"];
+        $user = $_POST["user"];
         $pass = $_POST["pass"];
         $passhash = hash("sha256",$pass);
         
-        if(\Models\Admin::login($usr,$passhash)){
-            $_SESSION["admin"] = $usr;
+        if(\Models\Admin::login($user,$passhash)){
+            $_SESSION["role"] = "admin";
+            $_SESSION["name"] = $user;
             header("Location: /adminhome");
-        }
-        else{
+        } else {
         echo \View\Loader::make()->render("templates/adminsignin.twig", array(
             error => true
         ));

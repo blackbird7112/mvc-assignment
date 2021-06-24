@@ -5,18 +5,24 @@
 {% block body %}
 <h2>User Details Search</h2>
         <form action="/userdets" method="POST">
-    <div class="text"><div class="label">Username:</div><input class="myinput" type="text" name="usr">
+    <div class="text"><div class="mylabel">Username:</div><input class="myinput" type="text" name="user">
     <br></div>
     <input type="submit" value="Submit" name="submit">
   </form>
-{% if stat==1 %}
+{% if status == 1 %}
 Search Results
 <table>
-<tr><th>Username</th><th>Name</th><th>Email</th><th>Phone No</th></tr>
-<tr><td>{{dat.usr}}</td><td>{{dat.name}}</td><td>{{dat.email}}</td><td>{{dat.phone}}</td></tr>
+<tr><th>Username</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone No</th></tr>
+<tr><td>{{data.usr}}</td>
+    <td>{{data.name}}</td>
+    <td>{{data.email}}</td>
+    <td>{{data.phone}}</td></tr>
 </table>
 {% endif %}
-{% if stat==2 %}
+{% if status == 2 %}
 No details found
 {% endif %}
     <form action="/adminhome" method="GET">

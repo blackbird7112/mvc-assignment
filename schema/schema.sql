@@ -1,4 +1,4 @@
-CREATE TABLE `book` (
+CREATE TABLE IF NOT EXISTS `book` (
   `bid` int NOT NULL AUTO_INCREMENT,
   `name` varchar(256) DEFAULT NULL,
   `publisher` varchar(256) DEFAULT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE `book` (
   PRIMARY KEY (`bid`)
 );
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `usr` varchar(256) NOT NULL,
   `name` varchar(256) DEFAULT NULL,
   `email` varchar(256) DEFAULT NULL,
@@ -18,13 +18,13 @@ CREATE TABLE `users` (
   PRIMARY KEY (`usr`)
 );
 
-CREATE TABLE `admin` (
+CREATE TABLE IF NOT EXISTS `admin` (
   `usr` varchar(256) NOT NULL,
   `pass` varchar(256) NOT NULL,
   PRIMARY KEY (`usr`)
 );
 
-CREATE TABLE `request` (
+CREATE TABLE IF NOT EXISTS `request` (
   `reqid` int NOT NULL AUTO_INCREMENT,
   `usr` varchar(256) NOT NULL,
   `bid` varchar(256) NOT NULL,

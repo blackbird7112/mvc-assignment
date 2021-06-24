@@ -5,10 +5,10 @@ session_start();
 
 
 class Admin{
-    public static function login($usr,$passhash){
+    public static function login($user,$passhash){
         $db = \DB::get_instance();
         $sql = $db->prepare("select * from admin where usr = ?;");
-        $sql->execute([$usr]);
+        $sql->execute([$user]);
         $row = $sql->fetch();
         if($row["pass"]==$passhash){
             return true;
@@ -17,10 +17,10 @@ class Admin{
             return false;
         }
     }
-    public static function user_dets($usr){
+    public static function user_dets($user){
         $db = \DB::get_instance();
         $sql = $db->prepare("select * from users where usr = ?;");
-        $sql->execute([$usr]);
+        $sql->execute([$user]);
         $row = $sql->fetch();
         if($sql->rowCount()==0){
             return false;
@@ -42,9 +42,8 @@ class Admin{
         $sql->execute([$name,$author,$publisher,$maxqty,$maxqty,""]);
         if($sql->rowCount()==0){
             return false;
-        }else{
-            return true;
         }
+        return true;
     }
     public static function book_del($bid){
         $db = \DB::get_instance();
@@ -58,15 +57,10 @@ class Admin{
                 $sql2->execute([$bid]);
                 if($sql2->rowCount()){
                     return true;
-                }else{
-                    return false;
                 }
-            }else{
-                return false;
             }
-        }else{
-            return false;
         }
+        return false;
 
     }
     public static function get_req(){
@@ -75,90 +69,64 @@ class Admin{
         $sql->execute();
         return $sql->fetchAll();
     }
+
     public static function admin_req($reqid,$action){
-        $db = \DB::get_instance();
-        $sql = $db->prepare("select * from request where reqid = ? and status = 'P'");
-        $sql->execute([$reqid]);
-        if($sql->rowCount()){
-            $row = $sql->fetch();
-            $usr = $row["usr"];
-            $bid = $row["bid"];
-            $reqtype = $row["reqtype"];
-            if($reqtype == "out"){
-                $sql1 = $db->prepare("select * from book where bid= ? and avail>0;");
-                $sql1->execute([$bid]);
-                if($sql1->rowCount()){
-                    $row1 = $sql1->fetch();
-                    $prevUser = $row1["users"];
-                    $prevUser1 = explode(";",$prevUser);
-                    if(in_array($usr,$prevUser1)){
-                        $action = "D";
-                    }
-                    $avail = (int) $row1["avail"];
-                    $sql2 = $db->prepare("update request set status= ? where reqid= ?;");
-                    $sql2 -> execute([$action,$reqid]);
-                    if($sql2->rowCount()){
-                        if($action=="A"){
-                            $avail -= 1;
-                            array_push($prevUser1,$usr);
-                            $prevUser2 = implode(";",$prevUser1);
-                            $sql3 = $db -> prepare("update book set avail= ?,users = ? where bid= ?;");
-                            $sql3->execute([$avail,$prevUser2,$bid]);
-                            if($sql3->rowCount()){
-                                return true;
-                            }else{
-                                return false;
-                            }
-                        }
-                        else if($action=="D"){
-                            return true;
-                        }
-                    }else{
-                        return false;
-                    }
-                }else{
-                    return false;
-                }
+    $db = \DB::get_instance();
+    $sql = $db->prepare("select * from request where reqid = ? and status = 'P'");
+    $sql->execute([$reqid]);
+    if($sql->rowCount()){
+        $row = $sql->fetch();
+        $user = $row["usr"];
+        $bid = $row["bid"];
+        $reqtype = $row["reqtype"];
+        
+        $condition1 = $reqtype == "out";
+        $condition2 = $reqtype == "in";
+        
+        $sql1 = $db->prepare("select * from book where bid= ?;");
+        $sql1->execute([$bid]);
+        
+        if($sql1->rowCount()){
+            $row1 = $sql1->fetch();
+            $prevUser = $row1["users"];
+            $prevUser1 = explode(";",$prevUser);
+            $avail = (int) $row1["avail"];
+
+            if($condition1 && (in_array($user,$prevUser1) || $avail==0)){
+                $action = "D";
             }
-            if($reqtype=="in"){
-                $sql1 = $db->prepare("select * from book where bid= ?;");
-                $sql1->execute([$bid]);
-                if($sql1->rowCount()){
-                    $row1 = $sql1->fetch();
-                    $prevUser = $row1["users"];
-                    $prevUser = explode(";",$prevUser);
-                    if(!in_array($usr,$prevUser)){
-                        $action = "D";
-                    }
-                    $avail = (int) $row1["avail"];
-                    $sql2 = $db->prepare("update request set status= ? where reqid= ?;");
-                    $sql2 -> execute([$action,$reqid]);
-                    if($sql2->rowCount()>0){
-                        if($action == "A"){
-                            $key = array_search($usr,$prevUser);
-                            unset($prevUser[$key]);
-                            $prevUser = implode(";",$prevUser);
-                            $avail += 1;
-                            $sql3 = $db -> prepare("update book set avail= ?,users = ? where bid= ?;");
-                            $sql3->execute([$avail,$prevUser,$bid]);
-                            if($sql3->rowCount()){
-                                return true;
-                            }else{
-                                return false;
-                            }
-                        }else if($action == "D"){
-                            return true;
-                        }
-                    }else{
-                        return false;
-                    }
-                }else{
-                    return false;
-                }
+            if($condition2 && !in_array($user,$prevUser1)){
+                $action = "D";
             }
-        }else{
-            return false;
+            $sql2 = $db->prepare("update request set status= ? where reqid= ?;");
+            $sql2 -> execute([$action,$reqid]);
+            if($sql2->rowCount()){
+                if($condition1 && $action == "A"){
+                    $avail -= 1;
+                    array_push($prevUser1,$user);
+                    $prevUser2 = implode(";",$prevUser1);
+                    $sql3 = $db -> prepare("update book set avail= ?,users = ? where bid= ?;");
+                    $sql3->execute([$avail,$prevUser2,$bid]);
+                    if($sql3->rowCount()){
+                        return true;
+                    }
+                } else if($condition2 && $action == "A"){
+                    $key = array_search($user,$prevUser1);
+                    unset($prevUser1[$key]);
+                    $prevUser2 = implode(";",$prevUser1);
+                    $avail += 1;
+                    $sql3 = $db -> prepare("update book set avail= ?,users = ? where bid= ?;");
+                    $sql3->execute([$avail,$prevUser2,$bid]);
+                    if($sql3->rowCount()){
+                        return true;
+                    }
+                } else if($action == "D"){
+                    return true;
+                }
+
+            }
         }
     }
-
+    return false;
+    }
 }

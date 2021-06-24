@@ -10,3 +10,6 @@ Library Management System made with PHP and MVC Architecture
 * Now change directory to public: `cd public`
 * Run `php -S localhost:<port>`
 * View the website at `http://localhost:<port>`
+
+## Create New Admin
+* Run the command: `php setup.php --admin=<admin username> --pass=<password>` 

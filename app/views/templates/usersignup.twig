@@ -5,14 +5,14 @@
 {% block body %}
 <h2>Welcome to User Registration</h2>
    <form action="/usersignup" method="POST">
-    <div class="text"><div class="label">Name: </div><input class="myinput" type="text" name="name"></div><br>
-    <div class="text"><div class="label">Email Id:</div> <input class="myinput" type="text" name="email"></div><br>
-    <div class="text"><div class="label">Phone Number:</div><input class="myinput" type="text" name="phone"></div><br>
-    <div class="text"><div class="label">Username:</div><input class="myinput" type="text" name="usr"></div>
+    <div class="text"><div class="mylabel">Name: </div><input class="myinput" type="text" name="name"></div><br>
+    <div class="text"><div class="mylabel">Email Id:</div> <input class="myinput" type="text" name="email"></div><br>
+    <div class="text"><div class="mylabel">Phone Number:</div><input class="myinput" type="text" name="phone"></div><br>
+    <div class="text"><div class="mylabel">Username:</div><input class="myinput" type="text" name="user"></div>
     <br>
-    <div class="text"><div class="label">Password:</div><input class="myinput" type="password" name="pass"></div>
+    <div class="text"><div class="mylabel">Password:</div><input class="myinput" type="password" name="pass"></div>
     <br>
-    <div class="text"><div class="label">Reenter Password:</div><input class="myinput" type="password" name="repass"></div><br>
+    <div class="text"><div class="mylabel">Reenter Password:</div><input class="myinput" type="password" name="repass"></div><br>
     <input type="submit" value="Register">
   </form>
 {% if error == 1 %}

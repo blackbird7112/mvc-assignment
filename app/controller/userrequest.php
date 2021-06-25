@@ -10,8 +10,8 @@ class UserRequest{
         $reqtype = $data['type'];
         $user = $_SESSION['name'];
         $datetime = date("Y-m-d h:i:sa");
-        $res = \Models\User::set_req($user,$bookid,$reqtype,$datetime);
-        if(res){
+        $response = \Models\User::set_req($user,$bookid,$reqtype,$datetime);
+        if($response){
             echo "{\"status\":\"Request successful\"}";
         }
         else{
